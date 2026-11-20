@@ -1,0 +1,6 @@
+*.log
+*.tmp
+target/
+/var/
+/test/var/
+/dist/var/

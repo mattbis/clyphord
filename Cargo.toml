@@ -1,0 +1,21 @@
+[package]
+name = "aiclip"
+version = "0.1.0"
+default-run = "aiclip"
+edition = "2021"
+
+[dependencies]
+anyhow = "1"
+arboard = { version = "3", default-features = false }
+clap = { version = "4", features = ["derive", "env"] }
+dirs = "6"
+eframe = "=0.31.1"
+glob = "0.3"
+rusqlite = { version = "0.32", features = ["bundled"] }
+
+[dev-dependencies]
+tempfile = "3"
+
+[[test]]
+name = "workflow"
+path = "test/workflow.rs"
