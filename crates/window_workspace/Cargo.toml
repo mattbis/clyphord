@@ -1,0 +1,12 @@
+[package]
+name = "aiclip-window-workspace"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+egui = "0.31.1"
+egui_dock = "0.16"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.59", features = ["Win32_Foundation", "Win32_Graphics_Gdi", "Win32_UI_WindowsAndMessaging", "Win32_UI_Shell", "Win32_UI_Input_KeyboardAndMouse"] }

@@ -4,7 +4,7 @@ Build the wildcard-to-clipboard CLI first. A typical job is assembling a draft, 
 
 ## Current Windows implementation
 
-One aiclip executable provides the CLI and the desktop workspace (`--gui`). It and the standalone GUI probe build from `local/clean_build.cmd`. CLI commands and examples are in [the README](../README.md). The desktop shares the CLI database and supports source staging, literal instructions, clipboard capture, publication, a detachable frameless preview and side-by-side comparison across named sessions. Templates and versioned snapshots are available through the CLI. Capture and snapshot history are explicit user actions.
+One aiclip executable provides the CLI and the desktop workspace (`--gui`). It and the standalone GUI probe build from `local/clean_build.cmd`. CLI commands and examples are in [the README](../README.md). The desktop shares the CLI database and supports source staging, literal instructions, clipboard capture, publication, dockable buffer tabs, resizable splits, frameless detachable editors, compact action strips, Windows work-area snapping and side-by-side comparison across named sessions. Templates and versioned snapshots are available through the CLI. Capture and snapshot history are explicit user actions.
 
 The Windows build and cross-process CLI tests cover wildcard ordering, persistence, session isolation, immutable snapshots, live templates and publication failure handling. Interactive window behavior and the system clipboard round trip require a desktop check. Advanced window management and suggestion features below remain planned.
 
@@ -53,7 +53,7 @@ Organize the Rust workspace around the shared core, CLI and later desktop fronte
 
 ## 4. Desktop workspace and smoke test
 
-Start with the standalone crate under `test/gui_framework/`. Run it with `cargo run --manifest-path test/gui_framework/Cargo.toml`. It exercises a real second viewport, a shared editable buffer, pin/unpin and reattachment. Close the pop-out using its title bar and verify the text reappears in the main window. This first probe uses eframe directly. Extend it in the following order before committing the production UI to the stack.
+Start with the standalone crate under `test/gui_framework/`. Run it with `cargo run --manifest-path test/gui_framework/Cargo.toml`. It exercises a real second viewport, a shared editable buffer, pin/unpin and reattachment. Close the pop-out with Alt+F4 and verify the text reappears in the main window. The probe and desktop app now use the same window workspace crate. Use the following probes for interactive Windows acceptance and later milestones.
 
 | Probe | Pass condition on Windows |
 | --- | --- |

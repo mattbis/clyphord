@@ -8,6 +8,12 @@ From the project root, run `.\local\build.cmd` to build `aiclip.exe`. Run `.\var
 
 `.\local\clean_build.cmd` clears the shared Cargo output under `./var/build/`, rebuilds aiclip and the standalone window probe, then runs the CLI integration test. Close running project executables before cleaning. Use `.\local\build_release.cmd` to build `./var/build/release/aiclip.exe`.
 
+## Arrange the desktop
+
+**New tab** opens another buffer view. **Split right** opens a response view beside the focused pane. Each tab has its own session, buffer and unsubmitted instructions. Drag a tab onto another tab bar to group them, or onto a pane edge to split. Drag the divider to resize.
+
+**Detach panel** opens the whole editor in a frameless native window. Its original tab keeps a return point. Use **Strip** for a compact Publish/Capture bar, **Expand** to resume editing, and **Pin** to keep the window on top. Drag the window by its title. On Windows, releasing within the **Snap** distance aligns it with the usable edge of that monitor, including corners. The default is 14 physical pixels. Set it to zero to disable snapping. **Reattach**, the original tab's **Reattach panel**, or closing the pop-out returns the editor to its tab. **Fullscreen** toggles the main workspace.
+
 ## Assemble a review
 
 Run these PowerShell commands from the repository root with your own input files. Once assigned, the executable path remains valid when you change directories.
