@@ -1,12 +1,14 @@
-# aiclip // actually now clyphord
+# Clyphord
 
 Assemble files and review instructions in a named buffer, publish the whole prompt to the Windows clipboard, and capture the reply. Both modes of `clyphord.exe` share the same local SQLite database.
+
+![Clyphord workspace showing a review buffer and its response](doc/clyphord-workspace.png)
 
 ## Build and run on Windows
 
 From the project root, run `.\local\build.cmd` to build `clyphord.exe`. Run `.\var\build\debug\clyphord.exe --gui` or use `.\local\run_desktop.cmd` to open the desktop workspace. It opens session `default`, buffer `review`. Refresh after staging files in another process. Choose **Compare buffers**, enter the second session and buffer, then click **Load both** to read the current contents side by side.
 
-`.\local\clean_build.cmd` clears the shared Cargo output under `./var/build/`, rebuilds aiclip and the standalone window probe, then runs the CLI integration test. Close running project executables before cleaning. Use `.\local\build_release.cmd` to build `./var/build/release/clyphord.exe`.
+`.\local\clean_build.cmd` clears the shared Cargo output under `./var/build/`, rebuilds clyphord and the standalone window probe, then runs the CLI integration test. Close running project executables before cleaning. Use `.\local\build_release.cmd` to build `./var/build/release/clyphord.exe`.
 
 ## Arrange the desktop
 
@@ -19,7 +21,7 @@ From the project root, run `.\local\build.cmd` to build `clyphord.exe`. Run `.\v
 Run these PowerShell commands from the repository root with your own input files. Once assigned, the executable path remains valid when you change directories.
 
 ```powershell
-$clip = (Resolve-Path ./var/build/debug/aiclip.exe).Path
+$clip = (Resolve-Path ./var/build/debug/clyphord.exe).Path
 & $clip add review "draft*.md" "glossary.md"
 & $clip text review "Compare the drafts and flag missing requirements."
 & $clip show review --stats
@@ -37,6 +39,6 @@ Add and show leave the Windows clipboard alone. Each wildcard expands again at p
 - `snapshot save review` freezes the rendered text and source paths and prints an ID. Use `snapshot list`, `snapshot show ID`, `snapshot sources ID`, or `snapshot restore ID new-buffer`. Publish the restored buffer when you need exactly the frozen text.
 - `--session NAME` selects an independent group of buffers and snapshots for that invocation. `list` shows its buffers. `clear NAME` clears the named buffer.
 - `get --file reply.md` captures directly to a new file. `append "notes*.md"` appends files directly to the current clipboard. `--append`, `--add` and `--clear` are alternate spellings of their subcommands.
-- Use `--db PATH` in either mode or set `AICLIP_DB` to use a separate database. The Windows default is `%LOCALAPPDATA%/aiclip/aiclip.sqlite`. Captures and snapshots contain plaintext. Capturing a reply is a manual action.
+- Use `--db PATH` in either mode or set `CLYPHORD_DB` to use a separate database. The Windows default is `%LOCALAPPDATA%/clyphord/clyphord.sqlite`. Existing installations continue using the earlier database if the new default is absent. Captures and snapshots contain plaintext. Capturing a reply is a manual action.
 
 The standalone frameless-window probe runs with `.\local\run_gui_test.cmd`. The remaining docking, platform and optional AI milestones are in [the development plan](doc/plan.md).

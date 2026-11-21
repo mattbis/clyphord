@@ -1,10 +1,10 @@
-# aiclip development plan
+# clyphord development plan
 
 Build the wildcard-to-clipboard CLI first. A typical job is assembling a draft, glossary and review instructions for another model, then capturing its response. The same operations should work later from a session panel, a detached window or a hotkey. This is a roadmap. Command spellings below distinguish the recovered design from proposed details that still need a CLI test.
 
 ## Current Windows implementation
 
-One aiclip executable provides the CLI and the desktop workspace (`--gui`). It and the standalone GUI probe build from `local/clean_build.cmd`. CLI commands and examples are in [the README](../README.md). The desktop shares the CLI database and supports source staging, literal instructions, clipboard capture, publication, dockable buffer tabs, resizable splits, frameless detachable editors, compact action strips, Windows work-area snapping and side-by-side comparison across named sessions. Templates and versioned snapshots are available through the CLI. Capture and snapshot history are explicit user actions.
+One clyphord executable provides the CLI and the desktop workspace (`--gui`). It and the standalone GUI probe build from `local/clean_build.cmd`. CLI commands and examples are in [the README](../README.md). The desktop shares the CLI database and supports source staging, literal instructions, clipboard capture, publication, dockable buffer tabs, resizable splits, frameless detachable editors, compact action strips, Windows work-area snapping and side-by-side comparison across named sessions. Templates and versioned snapshots are available through the CLI. Capture and snapshot history are explicit user actions.
 
 The Windows build and cross-process CLI tests cover wildcard ordering, persistence, session isolation, immutable snapshots, live templates and publication failure handling. Interactive window behavior and the system clipboard round trip require a desktop check. Advanced window management and suggestion features below remain planned.
 
@@ -23,14 +23,14 @@ Preserve argument group order. Sort wildcard matches within each group, includin
 The first milestone needs persistent named buffers because each line below starts a new process. Stage instructions and files in the buffer. Only the final put publishes to Windows, using one clipboard write for the whole document so clipboard history stays useful. Report a size warning for unusually large output; the threshold is open.
 
 ```powershell
-aiclip add review "draft-6.md"
-aiclip add review "glossary*.md"
-aiclip add review "review-instructions.md"
-aiclip show review
-aiclip put review
+clyphord add review "draft-6.md"
+clyphord add review "glossary*.md"
+clyphord add review "review-instructions.md"
+clyphord show review
+clyphord put review
 ```
 
-The original direct-append example was `aiclip --append "draft-6.md" "glossary*.md"`. Test this separately with existing clipboard text. For named buffers, verify that add and show leave that text intact until put.
+The original direct-append example was `clyphord --append "draft-6.md" "glossary*.md"`. Test this separately with existing clipboard text. For named buffers, verify that add and show leave that text intact until put.
 
 **First acceptance run.** Create draft-5.md, draft-6.md and glossary.md with distinct text, including a non-ASCII character. Add the quoted draft wildcard followed by the glossary. Preview and put twice. Check all three names and bodies appear in the same order exactly once in each result and that the preview matches the pasted text. Add a missing required source and verify the existing clipboard survives the error.
 
@@ -61,7 +61,7 @@ Start with the standalone crate under `test/gui_framework/`. Run it with `cargo 
 | Anchoring | Attach a pop-out to the parent, move the parent, then detach and move each independently. Keep parent attachment distinct from snapping to a display. |
 | Magnetic snap | Compare window bounds to the current monitor’s usable work area. Within the configured threshold, align to the top or bottom edge as in the Electron example. Outside the threshold, leave the position alone. Skip maximized windows. Repeat on a secondary display with different scaling and a taskbar. |
 | Pinning and focus | Toggle always-on-top per window, switch to another app and verify both states. Closing or hiding one panel should leave the others usable. |
-| Global hotkey and tray | With another app focused, show/hide aiclip by hotkey and restore it from the tray. Check conflicts and clean exit. |
+| Global hotkey and tray | With another app focused, show/hide clyphord by hotkey and restore it from the tray. Check conflicts and clean exit. |
 | Top-screen dock | Give the dock configurable action icons and auto-hide. Test overlay and reserved-space modes independently, including releasing reserved space on exit. |
 
 Provide three ways into a session: a quick overlay, a docked action strip and a fullscreen workspace with resizable comparison panels. A detached session on a second monitor has its own visibility. Test hiding and restoring the main workspace while that session stays visible.
@@ -80,7 +80,7 @@ Additional learning candidates discussed were Clink-style frequency/recency scor
 
 ## 6. Privacy and credentials
 
-Start with deliberate aiclip actions. Make passive clipboard monitoring opt-in and provide a privacy mode and sensitive-app exclusions, including password managers. Test that excluded content never enters history or learning data. Store API credentials in the OS credential vault. Show suggested edits for approval before changing buffer text.
+Start with deliberate clyphord actions. Make passive clipboard monitoring opt-in and provide a privacy mode and sensitive-app exclusions, including password managers. Test that excluded content never enters history or learning data. Store API credentials in the OS credential vault. Show suggested edits for approval before changing buffer text.
 
 ## Delivery order
 

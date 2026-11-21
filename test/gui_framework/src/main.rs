@@ -1,4 +1,4 @@
-use aiclip_window_workspace::{Panel, Workspace};
+use clyphord_window_workspace::{Panel, Workspace};
 use eframe::egui;
 
 struct Editor {
@@ -48,7 +48,7 @@ impl eframe::App for Probe {
 }
 fn main() -> eframe::Result<()> {
     eframe::run_native(
-        "aiclip GUI smoke test",
+        "clyphord GUI smoke test",
         Default::default(),
         Box::new(|_| {
             Ok(Box::new(Probe {

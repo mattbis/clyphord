@@ -130,15 +130,15 @@ dependencies = [
 ]
 
 [[package]]
-name = "aiclip-gui-smoke"
+name = "clyphord-gui-smoke"
 version = "0.1.0"
 dependencies = [
- "aiclip-window-workspace",
+ "clyphord-window-workspace",
  "eframe",
 ]
 
 [[package]]
-name = "aiclip-window-workspace"
+name = "clyphord-window-workspace"
 version = "0.1.0"
 dependencies = [
  "egui",

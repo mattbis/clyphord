@@ -1,8 +1,8 @@
 mod desktop;
 
-use aiclip::{render, Entry, Store};
 use anyhow::{bail, Context, Result};
 use clap::{Parser, Subcommand};
+use clyphord::{render, Entry, Store};
 use std::{
     fs::OpenOptions,
     io::{self, Read, Write},
@@ -16,7 +16,7 @@ use std::{
     after_help = "Quote wildcard patterns. ** traverses subdirectories. Each pattern must match a file. Repeated inputs are kept. Files must be UTF-8 (optional BOM). Use - once to read stdin, or 'text' for literal instructions. Empty files and empty literal strings are allowed. Save and get --file require a new destination."
 )]
 struct Cli {
-    #[arg(long, global = true, env = "AICLIP_DB")]
+    #[arg(long, global = true, env = "CLYPHORD_DB")]
     db: Option<PathBuf>,
     #[arg(long, global = true, default_value = "default")]
     session: String,
@@ -140,11 +140,11 @@ fn run() -> Result<()> {
     let cli = Cli::parse();
     let path = match cli.db {
         Some(p) => p,
-        None => aiclip::database_path()?,
+        None => clyphord::database_path()?,
     };
     let mut store = Store::open(&path)?;
     let session = &cli.session;
-    let report = |result: &aiclip::Rendered| {
+    let report = |result: &clyphord::Rendered| {
         if cli.stats {
             eprintln!(
                 "{} files, {} UTF-8 bytes, ~{} tokens (rough estimate)",
@@ -157,7 +157,7 @@ fn run() -> Result<()> {
             eprintln!("large output: {} bytes", result.text.len());
         }
     };
-    let format = |entries: &[Entry]| -> Result<aiclip::Rendered> {
+    let format = |entries: &[Entry]| -> Result<clyphord::Rendered> {
         let result = render(entries, !cli.no_headings, &cli.separator)?;
         report(&result);
         Ok(result)
@@ -177,13 +177,13 @@ fn run() -> Result<()> {
         }
         Command::Show { buffer } => output(&format(&store.read(session, &buffer)?)?.text)?,
         Command::Put { buffer } => {
-            aiclip::publish_buffer(
+            clyphord::publish_buffer(
                 &store.read(session, &buffer)?,
                 !cli.no_headings,
                 &cli.separator,
                 |doc| {
                     report(doc);
-                    aiclip::publish(&doc.text)
+                    clyphord::publish(&doc.text)
                 },
             )?;
         }
@@ -260,7 +260,7 @@ fn main() -> std::process::ExitCode {
     match run() {
         Ok(()) => std::process::ExitCode::SUCCESS,
         Err(e) => {
-            eprintln!("aiclip: {e:#}");
+            eprintln!("clyphord: {e:#}");
             std::process::ExitCode::FAILURE
         }
     }

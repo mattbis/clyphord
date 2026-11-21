@@ -9,9 +9,9 @@ fn two_shells_live_recipe_and_frozen_review() {
     fs::write(docs.join("draft-5.md"), "\u{feff}café").unwrap();
     fs::write(docs.join("glossary.md"), "terms").unwrap();
     let call = |cwd: &std::path::Path, args: &[&str]| {
-        Command::new(env!("CARGO_BIN_EXE_aiclip"))
+        Command::new(env!("CARGO_BIN_EXE_clyphord"))
             .current_dir(cwd)
-            .env("AICLIP_DB", root.join("state.db"))
+            .env("CLYPHORD_DB", root.join("state.db"))
             .args(args)
             .output()
             .unwrap()
@@ -74,7 +74,7 @@ fn two_shells_live_recipe_and_frozen_review() {
 
 #[test]
 fn publish_writes_once_after_all_inputs_succeed() {
-    use aiclip::{publish_buffer, Entry};
+    use clyphord::{publish_buffer, Entry};
     use std::cell::{Cell, RefCell};
     let tmp = tempfile::tempdir().unwrap();
     let path = tmp.path().join("notes.md");
@@ -85,7 +85,7 @@ fn publish_writes_once_after_all_inputs_succeed() {
     ];
     let writes = Cell::new(0);
     let clipboard = RefCell::new(String::from("old clipboard"));
-    let write = |doc: &aiclip::Rendered| {
+    let write = |doc: &clyphord::Rendered| {
         writes.set(writes.get() + 1);
         clipboard.replace(doc.text.clone());
         Ok(())

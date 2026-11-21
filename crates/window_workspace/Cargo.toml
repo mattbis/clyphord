@@ -1,5 +1,5 @@
 [package]
-name = "aiclip-window-workspace"
+name = "clyphord-window-workspace"
 version = "0.1.0"
 edition = "2021"
 publish = false

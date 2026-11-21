@@ -1,6 +1,6 @@
-use aiclip::{publish, render, Entry, Store};
-use aiclip_window_workspace::{Panel, Workspace};
 use anyhow::{ensure, Result};
+use clyphord::{publish, render, Entry, Store};
+use clyphord_window_workspace::{Panel, Workspace};
 use eframe::egui;
 
 struct BufferPanel {
@@ -216,7 +216,7 @@ impl eframe::App for Desk {
     fn update(&mut self, ctx: &egui::Context, _: &mut eframe::Frame) {
         egui::TopBottomPanel::top("workspace-tools").show(ctx, |ui| {
             ui.horizontal_wrapped(|ui| {
-                ui.heading("aiclip");
+                ui.heading("clyphord");
                 ui.separator();
                 if ui.button("New tab").clicked() {
                     self.workspace
@@ -248,7 +248,7 @@ pub fn run(store: Store, session: String) -> eframe::Result<()> {
         .with_inner_size([960.0, 620.0])
         .with_min_inner_size([420.0, 320.0]);
     eframe::run_native(
-        "aiclip",
+        "clyphord",
         eframe::NativeOptions {
             viewport,
             ..Default::default()

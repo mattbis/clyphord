@@ -215,13 +215,16 @@ impl Store {
 }
 
 pub fn database_path() -> Result<std::path::PathBuf> {
-    if let Some(p) = std::env::var_os("AICLIP_DB") {
+    if let Some(p) = std::env::var_os("CLYPHORD_DB").or_else(|| std::env::var_os("AICLIP_DB")) {
         return Ok(p.into());
     }
-    Ok(dirs::data_local_dir()
-        .context("set AICLIP_DB to a writable database path")?
-        .join("aiclip")
-        .join("aiclip.sqlite"))
+    let data = dirs::data_local_dir().context("set CLYPHORD_DB to a writable database path")?;
+    let current = data.join("clyphord").join("clyphord.sqlite");
+    let legacy = data.join("aiclip").join("aiclip.sqlite");
+    if !current.try_exists()? && legacy.is_file() {
+        return Ok(legacy);
+    }
+    Ok(current)
 }
 pub fn publish(text: &str) -> Result<()> {
     anyhow::ensure!(
