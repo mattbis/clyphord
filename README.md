@@ -1,4 +1,4 @@
-# aiclip
+# aiclip // actually now clyphord
 
 Assemble files and review instructions in a named buffer, publish the whole prompt to the Windows clipboard, and capture the reply. Both modes of `aiclip.exe` share the same local SQLite database.
 
