@@ -1,12 +1,12 @@
 # aiclip // actually now clyphord
 
-Assemble files and review instructions in a named buffer, publish the whole prompt to the Windows clipboard, and capture the reply. Both modes of `aiclip.exe` share the same local SQLite database.
+Assemble files and review instructions in a named buffer, publish the whole prompt to the Windows clipboard, and capture the reply. Both modes of `clyphord.exe` share the same local SQLite database.
 
 ## Build and run on Windows
 
-From the project root, run `.\local\build.cmd` to build `aiclip.exe`. Run `.\var\build\debug\aiclip.exe --gui` or use `.\local\run_desktop.cmd` to open the desktop workspace. It opens session `default`, buffer `review`. Refresh after staging files in another process. Choose **Compare buffers**, enter the second session and buffer, then click **Load both** to read the current contents side by side.
+From the project root, run `.\local\build.cmd` to build `clyphord.exe`. Run `.\var\build\debug\clyphord.exe --gui` or use `.\local\run_desktop.cmd` to open the desktop workspace. It opens session `default`, buffer `review`. Refresh after staging files in another process. Choose **Compare buffers**, enter the second session and buffer, then click **Load both** to read the current contents side by side.
 
-`.\local\clean_build.cmd` clears the shared Cargo output under `./var/build/`, rebuilds aiclip and the standalone window probe, then runs the CLI integration test. Close running project executables before cleaning. Use `.\local\build_release.cmd` to build `./var/build/release/aiclip.exe`.
+`.\local\clean_build.cmd` clears the shared Cargo output under `./var/build/`, rebuilds aiclip and the standalone window probe, then runs the CLI integration test. Close running project executables before cleaning. Use `.\local\build_release.cmd` to build `./var/build/release/clyphord.exe`.
 
 ## Arrange the desktop
 
